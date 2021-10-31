@@ -1,0 +1,22 @@
+.paypal__consent {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 400px;
+  align-items: center;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  background-color: #fff;
+  justify-content: center;
+  & img {
+    width: 450px;
+    height: 300px;
+  }
+}
+.paypal__consent--deactivated {
+  display: none;
+}
+.paypal__consent--activated {
+  display: flex;
+}

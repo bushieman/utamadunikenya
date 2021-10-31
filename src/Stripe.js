@@ -7,15 +7,15 @@ import {
 } from "@stripe/react-stripe-js";
 
 import "./Stripe.scss";
+import payment from "./assets/images/payment.jpg";
 import { useStateValue } from "./Context";
 import axios from "./Axios";
-import payment from "./assets/images/payment.jpg";
 
 function StripeForm({ stripe, elements }) {
   const [{ checkOutPrice }] = useStateValue();
   const [clientSecret, setClientSecret] = useState("");
   const [payload, setPayload] = useState("");
-  const [paymentSuccessful, setPaymentSuccessful] = useState(false);
+  const [succeeded, setSucceeded] = useState(false);
 
   useEffect(() => {
     const getClientSecret = async () => {
@@ -30,10 +30,13 @@ function StripeForm({ stripe, elements }) {
 
   useEffect(() => {
     if (payload.paymentIntent?.status == "succeeded") {
-      setPaymentSuccessful(true);
+      setSucceeded(true);
     } else {
       console.log("There was an error completing the purchase");
     }
+    setTimeout(function () {
+      setSucceeded(false);
+    }, 6000);
   }, [payload]);
 
   const handleSubmit = async (e) => {
@@ -96,7 +99,9 @@ function StripeForm({ stripe, elements }) {
       </form>
       <div
         className={`stripe__consent ${
-          paymentSuccessful ? "stripe__consent--success" : ""
+          succeeded
+            ? "stripe__consent--activated"
+            : "stripe__consent--deactivated"
         }`}
       >
         <img src={payment} alt="#" />

@@ -4,6 +4,7 @@ import { auth } from "./Firebase";
 import { useStateValue } from "./Context";
 import * as actions from "./ActionTypes";
 import Billing from "./Billing";
+import SignUp from "./SignUp";
 
 function App() {
   const [{}, dispatch] = useStateValue();
@@ -19,7 +20,8 @@ function App() {
 
   return (
     <div className="app">
-      <Billing />
+      {/* <Billing /> */}
+      <SignUp />
     </div>
   );
 }

@@ -102,12 +102,14 @@
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   background-color: #fff;
   justify-content: center;
-  display: none;
   & img {
     width: 450px;
     height: 300px;
   }
 }
-.stripe__consent--success {
+.stripe__consent--deactivated {
+  display: none;
+}
+.stripe__consent--activated {
   display: flex;
 }

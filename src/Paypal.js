@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
+import "./Paypal.scss";
+import payment from "./assets/images/payment.jpg";
 import { useStateValue } from "./Context";
 
 function Paypal() {
@@ -8,7 +10,19 @@ function Paypal() {
   const [succeeded, setSucceeded] = useState(false);
   const [paypalErrorMessage, setPaypalErrorMessage] = useState("");
   const [orderID, setOrderID] = useState(false);
-  const [billingDetails, setBillingDetails] = useState("");
+  const [payload, setPayload] = useState("");
+
+  useEffect(() => {
+    console.log(payload.status);
+    if (payload.status == "COMPLETED") {
+      setSucceeded(true);
+    } else {
+      console.log("There was an error completing the purchase");
+    }
+    setTimeout(function () {
+      setSucceeded(false);
+    }, 6000);
+  }, [payload]);
 
   const createOrder = (data, actions) => {
     return actions.order
@@ -29,10 +43,7 @@ function Paypal() {
 
   const onApprove = (data, actions) => {
     return actions.order.capture().then((details) => {
-      console.log("approved details", details);
-      const { payer } = details;
-      setBillingDetails(payer);
-      setSucceeded(true);
+      setPayload(details);
     });
   };
   const onError = (data, actions) => {
@@ -53,6 +64,15 @@ function Paypal() {
         onApprove={(data, actions) => onApprove(data, actions)}
         onError={(data, actions) => onError(data, actions)}
       />
+      <div
+        className={`paypal__consent ${
+          succeeded
+            ? "paypal__consent--activated"
+            : "paypal__consent--deactivated"
+        }`}
+      >
+        <img src={payment} alt="#" />
+      </div>
     </PayPalScriptProvider>
   );
 }
