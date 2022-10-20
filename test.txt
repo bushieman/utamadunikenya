@@ -1,5 +1,6 @@
 test file
 this is my test file version 3.1.2
+created on 19/10/2022
 
 money in = 50
 test file version
