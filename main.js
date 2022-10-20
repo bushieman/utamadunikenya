@@ -2,6 +2,8 @@ import React from 'react';
 
 function App() {
   return (
-    <div></div>
+    <div>
+      <h1>bushman</h1>
+    </div>
   )
 }
