@@ -1,2 +1,5 @@
+test file
 this is my test file version 3.1.2
 
+money in = 50
+test file version
